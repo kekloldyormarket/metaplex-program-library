@@ -7,103 +7,94 @@
 
 import * as beet from "@metaplex-foundation/beet";
 import * as web3 from "@solana/web3.js";
+import { UpdatingArgs, updatingArgsBeet } from "../types/UpdatingArgs";
 
 /**
  * @category Instructions
- * @category ProcessInitForMint
+ * @category ProcessPassUaBack
  * @category generated
  */
-export type ProcessInitForMintInstructionArgs = {
-  bumpSeed: number;
+export type ProcessPassUaBackInstructionArgs = {
+  args: UpdatingArgs;
 };
 /**
  * @category Instructions
- * @category ProcessInitForMint
+ * @category ProcessPassUaBack
  * @category generated
  */
-const processInitForMintStruct = new beet.BeetArgsStruct<
-  ProcessInitForMintInstructionArgs & {
+const processPassUaBackStruct = new beet.FixableBeetArgsStruct<
+  ProcessPassUaBackInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
     ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
-    ["bumpSeed", beet.u8],
+    ["args", updatingArgsBeet],
   ],
-  "ProcessInitForMintInstructionArgs"
+  "ProcessPassUaBackInstructionArgs"
 );
 /**
- * Accounts required by the _processInitForMint_ instruction
+ * Accounts required by the _processPassUaBack_ instruction
  * @category Instructions
- * @category ProcessInitForMint
+ * @category ProcessPassUaBack
  * @category generated
  */
-export type ProcessInitForMintInstructionAccounts = {
+export type ProcessPassUaBackInstructionAccounts = {
   authority: web3.PublicKey;
   fanout: web3.PublicKey;
-  fanoutForMint: web3.PublicKey;
-  mintHoldingAccount: web3.PublicKey;
-  mint: web3.PublicKey;
+  holdingAccount: web3.PublicKey;
+  metadata: web3.PublicKey;
+  tokenMetadataProgram: web3.PublicKey;
 };
 
-const processInitForMintInstructionDiscriminator = [
-  140, 150, 232, 195, 93, 219, 35, 170,
+const processPassUaBackInstructionDiscriminator = [
+  180, 66, 26, 192, 55, 23, 178, 235,
 ];
 
 /**
- * Creates a _ProcessInitForMint_ instruction.
+ * Creates a _ProcessPassUaBack_ instruction.
  *
  * @param accounts that will be accessed while the instruction is processed
  * @param args to provide as instruction data to the program
  *
  * @category Instructions
- * @category ProcessInitForMint
+ * @category ProcessPassUaBack
  * @category generated
  */
-export function createProcessInitForMintInstruction(
-  accounts: ProcessInitForMintInstructionAccounts,
-  args: ProcessInitForMintInstructionArgs
+export function createProcessPassUaBackInstruction(
+  accounts: ProcessPassUaBackInstructionAccounts,
+  args: ProcessPassUaBackInstructionArgs
 ) {
-  const { authority, fanout, fanoutForMint, mintHoldingAccount, mint } =
+  const { authority, fanout, holdingAccount, metadata, tokenMetadataProgram } =
     accounts;
 
-  const [data] = processInitForMintStruct.serialize({
-    instructionDiscriminator: processInitForMintInstructionDiscriminator,
+  const [data] = processPassUaBackStruct.serialize({
+    instructionDiscriminator: processPassUaBackInstructionDiscriminator,
     ...args,
   });
   const keys: web3.AccountMeta[] = [
     {
       pubkey: authority,
       isWritable: true,
-      isSigner: true,
+      isSigner: false,
     },
     {
       pubkey: fanout,
-      isWritable: true,
-      isSigner: false,
-    },
-    {
-      pubkey: fanoutForMint,
-      isWritable: true,
-      isSigner: false,
-    },
-    {
-      pubkey: mintHoldingAccount,
-      isWritable: true,
-      isSigner: false,
-    },
-    {
-      pubkey: mint,
       isWritable: false,
       isSigner: false,
     },
     {
-      pubkey: web3.SystemProgram.programId,
+      pubkey: holdingAccount,
       isWritable: false,
       isSigner: false,
     },
     {
-      pubkey: web3.SYSVAR_RENT_PUBKEY,
+      pubkey: metadata,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: tokenMetadataProgram,
       isWritable: false,
       isSigner: false,
     },

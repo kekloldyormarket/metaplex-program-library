@@ -2,14 +2,6 @@ use crate::state::Fanout;
 use crate::error::UpdateMetadataError;
 use anchor_lang::prelude::*;
 
-#[derive(AnchorSerialize, AnchorDeserialize, Clone, Default)]
-pub struct UpdatingArgs {
-    pub name: String, 
-    pub uri: String, 
-    pub symbol: String, 
-    pub seller_fee_basis_points: u16, 
-    pub creators:  Option<Vec<Creator>>
-}
 use crate::utils::validation::assert_owned_by;
 use mpl_token_metadata::{
     instruction::{
@@ -24,7 +16,7 @@ use anchor_spl::token::TokenAccount;
 pub struct SignMetadata<'info> {
     #[account(mut)]
     /// CHECK: Checked in Program
-    pub authority: UncheckedAccount<'info>,
+    pub authority: Signer<'info>,
     #[account(
     seeds = [b"fanout-config", fanout.name.as_bytes()],
     bump
@@ -68,6 +60,8 @@ pub fn sign_metadata(ctx: Context<SignMetadata>, args: UpdatingArgs) -> Result<(
     let token_account_info2 = &ctx.accounts.token_account.to_account_info();
     let token_program_id = &ctx.accounts.token_program.to_account_info();
     let total_shares = &ctx.accounts.fanout.total_shares;
+    assert_owned_by(&source_info, &authority_info.key())?;
+
     assert_owned_by(&token_account_info, &ctx.accounts.fanout.authority)?;
     assert_owned_by(&token_account_info2, &Pubkey::new_from_array([
         255,   0, 198, 221,  91, 179,  95, 217,
@@ -109,16 +103,13 @@ pub fn sign_metadata(ctx: Context<SignMetadata>, args: UpdatingArgs) -> Result<(
             metadata.key(),
             holding_account.key(),
                     None,
-                    Some(Data{/// The name oz the asset
-                         name: args.name,
-                        /// The symbol for the asset
-                         symbol: args.symbol,
-                        /// URI pointing to JSON representing the asset
-                         uri: args.uri,
-                        /// Royalty basis points that goes to creators in secondary sales (0-10000)
-                         seller_fee_basis_points: args.seller_fee_basis_points,
-                        /// Array of creators, optional
-                         creators: args.creators}),
+                    Some(Data{
+                        name: args.name,
+                        symbol: args.symbol,
+                        uri:args.uri,
+                        seller_fee_basis_points: args.seller_fee_basis_points,
+                        creators:args.creators
+                    }),
                     None,
             ),
         &[metadata.to_owned(), holding_account.to_account_info()],
@@ -137,11 +128,12 @@ pub fn sign_metadata(ctx: Context<SignMetadata>, args: UpdatingArgs) -> Result<(
     })?;
     Ok(())
 }
+/*/
 #[derive(AnchorSerialize, AnchorDeserialize, Accounts)]
 pub struct PassUaBack<'info> {
     #[account(mut)]
     /// CHECK: Checked in Program
-    pub authority: UncheckedAccount<'info>,
+    pub authority: Signer<'info>,
     #[account(
     seeds = [b"fanout-config", fanout.name.as_bytes()],
     has_one = authority,
@@ -165,7 +157,7 @@ pub struct PassUaBack<'info> {
     pub token_metadata_program: UncheckedAccount<'info>,
 }
 
-pub fn pass_ua_back(ctx: Context<PassUaBack>, args: UpdatingArgs) -> Result<()> {
+pub fn pass_ua_back(ctx: Context<PassUaBack>, data: Data) -> Result<()> {
     let metadata = ctx.accounts.metadata.to_account_info();
     let holding_account = &ctx.accounts.holding_account;
     
@@ -181,16 +173,7 @@ pub fn pass_ua_back(ctx: Context<PassUaBack>, args: UpdatingArgs) -> Result<()> 
         metadata.key(),
         holding_account.key(),
                 None,
-                Some(Data{/// The name oz the asset
-                    name: args.name,
-                   /// The symbol for the asset
-                    symbol: args.symbol,
-                   /// URI pointing to JSON representing the asset
-                    uri: args.uri,
-                   /// Royalty basis points that goes to creators in secondary sales (0-10000)
-                    seller_fee_basis_points: args.seller_fee_basis_points,
-                   /// Array of creators, optional
-                    creators: args.creators}),
+                Some(data),
                 None,
         ),
         &[metadata.to_owned(), holding_account.to_account_info()],
@@ -209,7 +192,7 @@ pub fn pass_ua_back(ctx: Context<PassUaBack>, args: UpdatingArgs) -> Result<()> 
     })?;
     Ok(())
 }
-
+*/
 
 
 struct TokenTransferParams<'a: 'b, 'b> {

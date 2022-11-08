@@ -6,10 +6,14 @@ use anchor_lang::prelude::*;
 use processors::*;
 use state::MembershipModel;
 
+use crate::processors::update_metadata::arg::UpdateArgs;
+
 declare_id!("5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW");
 
 #[program]
 pub mod update_metadata {
+
+
     use super::*;
 
     pub fn process_init(
@@ -26,12 +30,13 @@ pub mod update_metadata {
     ) -> Result<()> {
         add_member_wallet(ctx, args)
     }
-    pub fn process_sign_metadata(ctx: Context<SignMetadata> , args: UpdatingArgs) -> Result<()> {
-        sign_metadata(ctx, args)
+    pub fn process_sign_metadata(ctx: Context<SignMetadata> , args: UpdateArgs) -> Result<()> {
+        sign_metadata(ctx, data)
     }
-    pub fn process_pass_ua_back(ctx: Context<PassUaBack> , args: UpdatingArgs) -> Result<()> {
-        pass_ua_back(ctx, args)
+    /*
+    pub fn process_pass_ua_back(ctx: Context<PassUaBack> ,  data: Data) -> Result<()> {
+        pass_ua_back(ctx, data)
     }
-
+*/
 
 }

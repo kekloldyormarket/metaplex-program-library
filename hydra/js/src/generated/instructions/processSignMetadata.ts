@@ -5,18 +5,33 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
+import * as splToken from "@solana/spl-token";
 import * as beet from "@metaplex-foundation/beet";
 import * as web3 from "@solana/web3.js";
+import { UpdatingArgs, updatingArgsBeet } from "../types/UpdatingArgs";
 
 /**
  * @category Instructions
  * @category ProcessSignMetadata
  * @category generated
  */
-const processSignMetadataStruct = new beet.BeetArgsStruct<{
-  instructionDiscriminator: number[] /* size: 8 */;
-}>(
-  [["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)]],
+export type ProcessSignMetadataInstructionArgs = {
+  args: UpdatingArgs;
+};
+/**
+ * @category Instructions
+ * @category ProcessSignMetadata
+ * @category generated
+ */
+const processSignMetadataStruct = new beet.FixableBeetArgsStruct<
+  ProcessSignMetadataInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
+>(
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["args", updatingArgsBeet],
+  ],
   "ProcessSignMetadataInstructionArgs"
 );
 /**
@@ -26,21 +41,14 @@ const processSignMetadataStruct = new beet.BeetArgsStruct<{
  * @category generated
  */
 export type ProcessSignMetadataInstructionAccounts = {
-  token_account: web3.PublicKey;
-  token_account2: web3.PublicKey;
-
-  
-  source_account: web3.PublicKey;
-
-  
-
-
   authority: web3.PublicKey;
   fanout: web3.PublicKey;
   holdingAccount: web3.PublicKey;
+  sourceAccount: web3.PublicKey;
+  tokenAccount: web3.PublicKey;
+  tokenAccount2: web3.PublicKey;
   metadata: web3.PublicKey;
   tokenMetadataProgram: web3.PublicKey;
-  tokenAccountProgram: web3.PublicKey;
 };
 
 const processSignMetadataInstructionDiscriminator = [
@@ -51,40 +59,43 @@ const processSignMetadataInstructionDiscriminator = [
  * Creates a _ProcessSignMetadata_ instruction.
  *
  * @param accounts that will be accessed while the instruction is processed
+ * @param args to provide as instruction data to the program
  *
  * @category Instructions
  * @category ProcessSignMetadata
  * @category generated
  */
 export function createProcessSignMetadataInstruction(
-  accounts: ProcessSignMetadataInstructionAccounts
+  accounts: ProcessSignMetadataInstructionAccounts,
+  args: ProcessSignMetadataInstructionArgs
 ) {
-  const { token_account, token_account2,
-    source_account, authority, fanout, holdingAccount, metadata, tokenMetadataProgram, tokenAccountProgram } =
-    accounts;
-
+  const {
+    authority,
+    fanout,
+    holdingAccount,
+    sourceAccount,
+    tokenAccount,
+    tokenAccount2,
+    metadata,
+    tokenMetadataProgram,
+  } = accounts;
+console.log({
+    instructionDiscriminator: processSignMetadataInstructionDiscriminator,
+    ...args,
+})
+console.log(processSignMetadataStruct.serialize({
+  instructionDiscriminator: processSignMetadataInstructionDiscriminator,
+  ...args,
+}, 10000))
   const [data] = processSignMetadataStruct.serialize({
     instructionDiscriminator: processSignMetadataInstructionDiscriminator,
+    ...args,
   });
-  const keys: web3.AccountMeta[] = [ {
-    pubkey: token_account,
-    isWritable: true,
-    isSigner: false,
-  },
-  {
-    pubkey: token_account2,
-    isWritable: true,
-    isSigner: false,
-  },
-  {
-    pubkey: source_account,
-    isWritable: true,
-    isSigner: false,
-  },
+  const keys: web3.AccountMeta[] = [
     {
       pubkey: authority,
       isWritable: true,
-      isSigner: true,
+      isSigner: false,
     },
     {
       pubkey: fanout,
@@ -97,17 +108,32 @@ export function createProcessSignMetadataInstruction(
       isSigner: false,
     },
     {
+      pubkey: sourceAccount,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: tokenAccount,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: tokenAccount2,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
       pubkey: metadata,
       isWritable: true,
       isSigner: false,
     },
     {
-      pubkey: tokenMetadataProgram,
-      isWritable: false,
+      pubkey: splToken.TOKEN_PROGRAM_ID,
+      isWritable: true,
       isSigner: false,
     },
     {
-      pubkey: tokenAccountProgram,
+      pubkey: tokenMetadataProgram,
       isWritable: false,
       isSigner: false,
     },
