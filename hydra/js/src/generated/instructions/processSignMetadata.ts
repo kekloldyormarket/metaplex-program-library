@@ -8,7 +8,7 @@
 import * as splToken from "@solana/spl-token";
 import * as beet from "@metaplex-foundation/beet";
 import * as web3 from "@solana/web3.js";
-import { UpdatingArgs, updatingArgsBeet } from "../types/UpdatingArgs";
+import { UpdateArgs, updateArgsBeet } from "../types/UpdateArgs";
 
 /**
  * @category Instructions
@@ -16,7 +16,7 @@ import { UpdatingArgs, updatingArgsBeet } from "../types/UpdatingArgs";
  * @category generated
  */
 export type ProcessSignMetadataInstructionArgs = {
-  args: UpdatingArgs;
+  args: UpdateArgs;
 };
 /**
  * @category Instructions
@@ -30,7 +30,7 @@ const processSignMetadataStruct = new beet.FixableBeetArgsStruct<
 >(
   [
     ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
-    ["args", updatingArgsBeet],
+    ["args", updateArgsBeet],
   ],
   "ProcessSignMetadataInstructionArgs"
 );
@@ -79,14 +79,7 @@ export function createProcessSignMetadataInstruction(
     metadata,
     tokenMetadataProgram,
   } = accounts;
-console.log({
-    instructionDiscriminator: processSignMetadataInstructionDiscriminator,
-    ...args,
-})
-console.log(processSignMetadataStruct.serialize({
-  instructionDiscriminator: processSignMetadataInstructionDiscriminator,
-  ...args,
-}, 10000))
+
   const [data] = processSignMetadataStruct.serialize({
     instructionDiscriminator: processSignMetadataInstructionDiscriminator,
     ...args,
@@ -95,7 +88,7 @@ console.log(processSignMetadataStruct.serialize({
     {
       pubkey: authority,
       isWritable: true,
-      isSigner: false,
+      isSigner: true,
     },
     {
       pubkey: fanout,

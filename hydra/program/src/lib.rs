@@ -31,7 +31,7 @@ pub mod update_metadata {
         add_member_wallet(ctx, args)
     }
     pub fn process_sign_metadata(ctx: Context<SignMetadata> , args: UpdateArgs) -> Result<()> {
-        sign_metadata(ctx, data)
+        sign_metadata(ctx, args)
     }
     /*
     pub fn process_pass_ua_back(ctx: Context<PassUaBack> ,  data: Data) -> Result<()> {

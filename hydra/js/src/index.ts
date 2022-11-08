@@ -1,11 +1,11 @@
-import { AccountsCoder, Provider } from "@project-serum/anchor";
+import { BorshAccountsCoder, Provider } from "@project-serum/anchor";
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
   NATIVE_MINT,
   Token,
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
-import { COption } from "@metaplex-foundation/beet"; 
+import { COption } from "@metaplex-foundation/beet";
 
 import {
   AccountInfo,
@@ -25,7 +25,7 @@ import {
   createProcessAddMemberWalletInstruction,
   createProcessInitInstruction,
   createProcessSignMetadataInstruction,
-} from "./generated/instructions";
+} from "../dist/lib/generated/instructions";
 import { MembershipModel } from "./generated/types";
 import { Fanout, Creator } from "./generated/accounts";
 import { MetadataProgram } from "@metaplex-foundation/mpl-token-metadata";
@@ -78,7 +78,7 @@ interface SignMetadataArgs {
   authority?: PublicKey;
   holdingAccount?: PublicKey;
   metadata: PublicKey;
-  args: any
+  args: any;
 }
 
 interface UnstakeMemberArgs {
@@ -184,7 +184,7 @@ export class FanoutClient {
 
   async getMembers({ fanout }: { fanout: PublicKey }): Promise<PublicKey[]> {
     const name = "fanoutMembershipVoucher";
-    const descriminator = AccountsCoder.accountDiscriminator(name);
+    const descriminator = BorshAccountsCoder.accountDiscriminator(name);
     const filters = [
       {
         memcmp: {
@@ -396,7 +396,7 @@ export class FanoutClient {
       signers,
     };
   }
-/*
+  /*
   async initializeFanoutForMintInstructions(
     opts: InitializeFanoutForMintArgs
   ): Promise<
@@ -747,35 +747,59 @@ export class FanoutClient {
   async signMetadataInstructions(
     opts: SignMetadataArgs
   ): Promise<InstructionResult<{}>> {
-    const authority = opts.authority
-       const fanoutObj = await this.fetch<Fanout>(opts.fanout, Fanout);
-     const holdingAccount = fanoutObj.accountKey as PublicKey;
+    const authority = opts.authority;
+    const fanoutObj = await this.fetch<Fanout>(opts.fanout, Fanout);
+    const holdingAccount = fanoutObj.accountKey as PublicKey;
 
     const instructions: TransactionInstruction[] = [];
     const signers: Signer[] = [];
-    const mint = new PublicKey("5EXGVkoDpygWkbJdvX8ANRK2CxnvK1BTuxG8uYXUb7G1")
-    const sourceAccount = (await this.connection.getTokenAccountsByOwner(this.wallet.publicKey, {mint})).value[0].pubkey
-    const tokenAccount = (await this.connection.getTokenAccountsByOwner(fanoutObj.authority, {mint})).value[0].pubkey
-    const tokenAccount2 = (await this.connection.getTokenAccountsByOwner(new PublicKey("JARehRjGUkkEShpjzfuV4ERJS25j8XhamL776FAktNGm"), {mint})).value[0].pubkey
-    let args = opts.args 
+    const mint = new PublicKey("5EXGVkoDpygWkbJdvX8ANRK2CxnvK1BTuxG8uYXUb7G1");
+    const sourceAccount = (
+      await this.connection.getTokenAccountsByOwner(this.wallet.publicKey, {
+        mint,
+      })
+    ).value[0].pubkey;
+    const tokenAccount = (
+      await this.connection.getTokenAccountsByOwner(fanoutObj.authority, {
+        mint,
+      })
+    ).value[0].pubkey;
+    const tokenAccount2 = (
+      await this.connection.getTokenAccountsByOwner(
+        new PublicKey("JARehRjGUkkEShpjzfuV4ERJS25j8XhamL776FAktNGm"),
+        { mint }
+      )
+    ).value[0].pubkey;
+    let args = opts.args;
     // @ts-ignore
-    let creators :  COption<Creator[]> = [new Creator(args.creators[0].address,args.creators[0].verified,args.creators[0].share)]
-    args.creators = creators
+    let creators: COption<Creator[]> = [
+      (args.creators[0].address,
+      args.creators[0].verified,
+      args.creators[0].share),
+    ];
+    args.creators = creators;
     instructions.push(
-      createProcessSignMetadataInstruction({
-        sourceAccount,  
-        tokenAccount, 
-        tokenAccount2,
-        fanout: opts.fanout,
-        authority: authority as PublicKey,
-        holdingAccount: holdingAccount,
-        metadata: opts.metadata,
-        tokenMetadataProgram: MetadataProgram.PUBKEY,
-      }, {args: {name: args.name,
-      uri: args.uri,
-    symbol: args.symbol,
-    sellerFeeBasisPoints: args.sellerFeeBasisPoints,
-  creators}})
+      createProcessSignMetadataInstruction(
+        {
+          sourceAccount,
+          tokenAccount,
+          tokenAccount2,
+          fanout: opts.fanout,
+          authority: authority as PublicKey,
+          holdingAccount: holdingAccount,
+          metadata: opts.metadata,
+          tokenMetadataProgram: MetadataProgram.PUBKEY,
+        },
+        {
+          args: {
+            name: args.name,
+            uri: args.uri,
+            symbol: args.symbol,
+            sellerFeeBasisPoints: args.sellerFeeBasisPoints,
+            creators,
+          },
+        }
+      )
     );
     return {
       output: {},
@@ -783,7 +807,7 @@ export class FanoutClient {
       signers,
     };
   }
-/*
+  /*
   async distributeTokenMemberInstructions(
     opts: DistributeTokenMemberArgs
   ): Promise<
@@ -1257,7 +1281,7 @@ export class FanoutClient {
     await this.throwingSend(instructions, signers, this.wallet.publicKey);
     return output;
   }
-/*
+  /*
   async stakeTokenMember(opts: StakeMemberArgs) {
     const { instructions, signers, output } =
       await this.stakeTokenMemberInstructions(opts);
@@ -1278,7 +1302,7 @@ export class FanoutClient {
     await this.throwingSend(instructions, signers, this.wallet.publicKey);
     return output;
   }
-/*
+  /*
   async removeMember(opts: RemoveMemberArgs) {
     let {
       instructions: remove_ix,

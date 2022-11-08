@@ -110,7 +110,7 @@
         {
           "name": "authority",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
           "name": "fanout",
@@ -157,45 +157,7 @@
         {
           "name": "args",
           "type": {
-            "defined": "UpdatingArgs"
-          }
-        }
-      ]
-    },
-    {
-      "name": "processPassUaBack",
-      "accounts": [
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "fanout",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "holdingAccount",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "metadata",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenMetadataProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "args",
-          "type": {
-            "defined": "UpdatingArgs"
+            "defined": "UpdateArgs"
           }
         }
       ]
@@ -415,16 +377,20 @@
       }
     },
     {
-      "name": "UpdatingArgs",
+      "name": "UpdateArgs",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "name",
-            "type": "string"
+            "name": "share",
+            "type": "u16"
           },
           {
             "name": "uri",
+            "type": "string"
+          },
+          {
+            "name": "name",
             "type": "string"
           },
           {
@@ -447,106 +413,7 @@
           }
         ]
       }
-    },
-    {
-      "name": "SignMetadata",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "authority",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          },
-          {
-            "name": "fanout",
-            "type": {
-              "defined": "Account<'info,Fanout>"
-            }
-          },
-          {
-            "name": "holdingAccount",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          },
-          {
-            "name": "sourceAccount",
-            "type": {
-              "defined": "Box<Account<'info,TokenAccount>>"
-            }
-          },
-          {
-            "name": "tokenAccount",
-            "type": {
-              "defined": "Box<Account<'info,TokenAccount>>"
-            }
-          },
-          {
-            "name": "tokenAccount2",
-            "type": {
-              "defined": "Box<Account<'info,TokenAccount>>"
-            }
-          },
-          {
-            "name": "metadata",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          },
-          {
-            "name": "tokenProgram",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          },
-          {
-            "name": "tokenMetadataProgram",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "PassUaBack",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "authority",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          },
-          {
-            "name": "fanout",
-            "type": {
-              "defined": "Account<'info,Fanout>"
-            }
-          },
-          {
-            "name": "holdingAccount",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          },
-          {
-            "name": "metadata",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          },
-          {
-            "name": "tokenMetadataProgram",
-            "type": {
-              "defined": "UncheckedAccount<'info>"
-            }
-          }
-        ]
-      }
+    
     },
     {
       "name": "MembershipModel",

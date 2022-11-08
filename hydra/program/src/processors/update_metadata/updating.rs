@@ -1,14 +1,13 @@
 use crate::state::Fanout;
 use crate::error::UpdateMetadataError;
 use anchor_lang::prelude::*;
-
+use crate::processors::update_metadata::arg::UpdateArgs;
 use crate::utils::validation::assert_owned_by;
 use mpl_token_metadata::{
     instruction::{
         update_metadata_accounts,
     },
     state::Data,
-    state::Creator
 };
 use spl_token::solana_program::program::invoke_signed;
 use anchor_spl::token::TokenAccount;
@@ -50,7 +49,7 @@ pub struct SignMetadata<'info> {
     pub token_metadata_program: UncheckedAccount<'info>,
 }
 
-pub fn sign_metadata(ctx: Context<SignMetadata>, args: UpdatingArgs) -> Result<()> {
+pub fn sign_metadata(ctx: Context<SignMetadata>, args: UpdateArgs) -> Result<()> {
     let metadata = ctx.accounts.metadata.to_account_info();
     let holding_account = &ctx.accounts.holding_account;
     
