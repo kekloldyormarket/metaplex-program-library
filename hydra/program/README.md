@@ -1,4 +1,4 @@
-# Hydra
+# UpdateMetadata
 
 Collective account pooling, fan out wallet, dao treasury, all of the things you need to FAN OUT
 
@@ -20,7 +20,7 @@ There are three components in this repo..
 
 ### Program Development
 
-The Hydra smart contract is written with anchor but we have changed the development flow slightly to
+The UpdateMetadata smart contract is written with anchor but we have changed the development flow slightly to
 allow for what we think is a better SDK. Using `anchor build` you get the BPF so file and the IDL.
 You then run the following to generate the SDK and spin up a local validator when you want to test
 your changes.
@@ -34,12 +34,12 @@ Now you have a validator running your newly compiled SO file and any other progr
 in the `.ammanrc.cjs`.
 
 Currently we require the local validator to have the `Token Metadata` program from `Metaplex`. We
-suggest you clone the `Metaplex Program Library` and put it in the same root folder as hydra like
+suggest you clone the `Metaplex Program Library` and put it in the same root folder as update_metadata like
 this:
 
 ```shell
  /root-folder
-    /hydra
+    /update_metadata
     /metaplex-program-library
 ```
 

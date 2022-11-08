@@ -5,7 +5,7 @@ import { PROGRAM_ADDRESS } from '../../src/generated';
 import { logDebug } from '.';
 
 export const amman = Amman.instance({
-  knownLabels: { [PROGRAM_ADDRESS]: 'Hydra' },
+  knownLabels: { [PROGRAM_ADDRESS]: 'UpdateMetadata' },
   log: logDebug,
   errorResolver: cusper,
 });

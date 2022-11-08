@@ -1,7 +1,6 @@
-pub mod logic;
 pub mod validation;
-
-use crate::error::HydraError;
+pub mod logic;
+use crate::error::UpdateMetadataError;
 use crate::state::{FanoutMembershipMintVoucher, FanoutMint, FANOUT_MINT_MEMBERSHIP_VOUCHER_SIZE};
 use crate::utils::validation::{assert_derivation, assert_owned_by};
 use anchor_lang::prelude::*;
@@ -68,13 +67,13 @@ pub fn parse_fanout_mint(
         &crate::ID,
         &account_info,
         &[b"fanout-config", fanout.as_ref(), fanout_mint.as_ref()],
-        Some(HydraError::InvalidFanoutForMint.into()),
+        Some(UpdateMetadataError::InvalidFanoutForMint.into()),
     )?;
     let mut fanout_mint_data: &[u8] = &fanout_for_mint.try_borrow_mut_data()?;
     let fanout_for_mint_object: FanoutMint = FanoutMint::try_deserialize(&mut fanout_mint_data)?;
     if fanout_mint_bump != fanout_for_mint_object.bump_seed {
         msg!("Invalid Fanout For Mint");
-        return Err(HydraError::InvalidFanoutForMint.into());
+        return Err(UpdateMetadataError::InvalidFanoutForMint.into());
     }
     Ok(fanout_for_mint_object)
 }
@@ -85,7 +84,7 @@ pub fn parse_token_account(account: &AccountInfo, owner: &Pubkey) -> Result<Toke
     let account_object = TokenAccount::try_deserialize(&mut account_data)?;
     if &account_object.owner != owner {
         msg!("Token Account has wrong owner");
-        return Err(HydraError::IncorrectOwner.into());
+        return Err(UpdateMetadataError::IncorrectOwner.into());
     }
     Ok(account_object)
 }
@@ -110,7 +109,7 @@ pub fn parse_mint_membership_voucher<'info>(
             membership_key.as_ref(),
             fanout_mint.as_ref(),
         ],
-        Some(HydraError::InvalidMembershipVoucher.into()),
+        Some(UpdateMetadataError::InvalidMembershipVoucher.into()),
     )?;
     let mint_voucher_empty = fanout_for_mint_membership_voucher.data_is_empty();
 
@@ -144,7 +143,7 @@ pub fn parse_mint_membership_voucher<'info>(
         let membership = FanoutMembershipMintVoucher::try_deserialize(&mut membership_data)?;
         if membership.bump_seed != mint_membership_voucher_bump {
             msg!("Mint Membership Bump Doesnt match");
-            return Err(HydraError::InvalidMembershipVoucher.into());
+            return Err(UpdateMetadataError::InvalidMembershipVoucher.into());
         }
         membership
     })

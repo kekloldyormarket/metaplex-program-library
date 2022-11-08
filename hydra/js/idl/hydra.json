@@ -1,6 +1,6 @@
 {
   "version": "0.3.0",
-  "name": "hydra",
+  "name": "update_metadata",
   "instructions": [
     {
       "name": "processInit",
@@ -1036,7 +1036,7 @@
     }
   ],
   "metadata": {
-    "address": "hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg",
+    "address": "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW",
     "origin": "anchor",
     "binaryVersion": "0.24.2",
     "libVersion": "0.24.2"

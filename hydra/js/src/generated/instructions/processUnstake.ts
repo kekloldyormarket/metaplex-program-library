@@ -5,31 +5,23 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
  * @category ProcessUnstake
  * @category generated
  */
-export const processUnstakeStruct = new beet.BeetArgsStruct<{
+const processUnstakeStruct = new beet.BeetArgsStruct<{
   instructionDiscriminator: number[] /* size: 8 */;
 }>(
-  [['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]],
-  'ProcessUnstakeInstructionArgs',
+  [["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)]],
+  "ProcessUnstakeInstructionArgs"
 );
 /**
  * Accounts required by the _processUnstake_ instruction
- *
- * @property [_writable_, **signer**] member
- * @property [_writable_] fanout
- * @property [_writable_] membershipVoucher
- * @property [_writable_] membershipMint
- * @property [_writable_] membershipMintTokenAccount
- * @property [_writable_] memberStakeAccount
- * @property [] instructions
  * @category Instructions
  * @category ProcessUnstake
  * @category generated
@@ -44,17 +36,22 @@ export type ProcessUnstakeInstructionAccounts = {
   instructions: web3.PublicKey;
 };
 
-export const processUnstakeInstructionDiscriminator = [217, 160, 136, 174, 149, 62, 79, 133];
+const processUnstakeInstructionDiscriminator = [
+  217, 160, 136, 174, 149, 62, 79, 133,
+];
 
 /**
  * Creates a _ProcessUnstake_ instruction.
  *
  * @param accounts that will be accessed while the instruction is processed
+ *
  * @category Instructions
  * @category ProcessUnstake
  * @category generated
  */
-export function createProcessUnstakeInstruction(accounts: ProcessUnstakeInstructionAccounts) {
+export function createProcessUnstakeInstruction(
+  accounts: ProcessUnstakeInstructionAccounts
+) {
   const {
     member,
     fanout,
@@ -117,7 +114,9 @@ export function createProcessUnstakeInstruction(accounts: ProcessUnstakeInstruct
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

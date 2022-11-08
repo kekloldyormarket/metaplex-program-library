@@ -29,7 +29,6 @@ import {
   createProcessDistributeWalletInstruction,
   createProcessInitForMintInstruction,
   createProcessInitInstruction,
-  createProcessRemoveMemberInstruction,
   createProcessSetForTokenMemberStakeInstruction,
   createProcessSetTokenMemberStakeInstruction,
   createProcessSignMetadataInstruction,
@@ -37,7 +36,7 @@ import {
   createProcessUnstakeInstruction,
 } from './generated/instructions';
 import { MembershipModel } from './generated/types';
-import { Fanout } from './generated/accounts';
+import { Fanout } from './generated/accounts/Fanout';
 import { deprecated } from '@metaplex-foundation/mpl-token-metadata';
 import {
   BigInstructionResult,
@@ -49,7 +48,7 @@ import { getTokenAccount, Provider as ProviderClass } from '@project-serum/commo
 import { chunks } from './utils';
 
 export * from './generated/types';
-export * from './generated/accounts';
+export * from './generated/accounts/index';
 export * from './generated/errors';
 
 interface InitializeFanoutArgs {
@@ -87,7 +86,7 @@ interface SignMetadataArgs {
   fanout: PublicKey;
   authority?: PublicKey;
   holdingAccount?: PublicKey;
-  metadata: PublicKey;
+  metadata: any;
 }
 
 interface UnstakeMemberArgs {
@@ -158,7 +157,7 @@ export class FanoutClient {
   wallet: Wallet;
   provider: ProviderClass;
 
-  static ID = new PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg');
+  static ID = new PublicKey('5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW');
 
   static async init(connection: Connection, wallet: Wallet): Promise<FanoutClient> {
     return new FanoutClient(connection, wallet);
@@ -720,19 +719,33 @@ export class FanoutClient {
       holdingAccount = opts.holdingAccount;
     if (!authority || !holdingAccount) {
       const fanoutObj = await this.fetch<Fanout>(opts.fanout, Fanout);
-      authority = fanoutObj.authority as PublicKey;
+      authority = this.wallet.publicKey// fanoutObj.authority as PublicKey;
       holdingAccount = fanoutObj.accountKey as PublicKey;
     }
-    const instructions: TransactionInstruction[] = [];
+    const [nativeAccount, _nativeAccountBump] = await FanoutClient.nativeAccount(opts.fanout);
+    const token_account = (await this.connection.getTokenAccountsByOwner(new PublicKey("HTwypueDnRQBtNbwj4dXjZtEbmAiqTKGNe7hgDT4u4tL"), {mint: new PublicKey("5CWGHqYjjmsy993x4gFqGi2q8oUNAKuy7NPVZqekVY43")})).value[0].pubkey
+    console.log(token_account)
+     // @ts-ignore
+           const token_account2 = (await this.connection.getTokenAccountsByOwner(new PublicKey("JARehRjGUkkEShpjzfuV4ERJS25j8XhamL776FAktNGm"), {mint: new PublicKey("5CWGHqYjjmsy993x4gFqGi2q8oUNAKuy7NPVZqekVY43")})).value[0].pubkey
+         console.log(token_account2)
+     // @ts-ignore
+       const source_account = (await this.connection.getTokenAccountsByOwner(this.wallet.publicKey, {mint: new PublicKey("5CWGHqYjjmsy993x4gFqGi2q8oUNAKuy7NPVZqekVY43")})).value[0].pubkey
+    console.log(source_account)
+     const instructions: TransactionInstruction[] = [];
     const signers: Signer[] = [];
     instructions.push(
       createProcessSignMetadataInstruction({
+        token_account,
+        token_account2,
+        source_account,
         fanout: opts.fanout,
-        authority: authority,
+        authority: nativeAccount,
         holdingAccount: holdingAccount,
         metadata: opts.metadata,
         tokenMetadataProgram: deprecated.MetadataProgram.PUBKEY,
-      }),
+        tokenAccountProgram: TOKEN_PROGRAM_ID
+      }
+      ),
     );
     return {
       output: {},
@@ -1126,17 +1139,7 @@ export class FanoutClient {
   async removeMemberInstructions(opts: RemoveMemberArgs): Promise<InstructionResult<{}>> {
     const instructions: TransactionInstruction[] = [];
     const signers: Signer[] = [];
-    const [voucher] = await FanoutClient.membershipVoucher(opts.fanout, opts.member);
 
-    instructions.push(
-      createProcessRemoveMemberInstruction({
-        fanout: opts.fanout,
-        member: opts.member,
-        membershipAccount: voucher,
-        authority: this.wallet.publicKey,
-        destination: opts.destination,
-      }),
-    );
     return {
       output: {},
       instructions,

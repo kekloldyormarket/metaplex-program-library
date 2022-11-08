@@ -1,4 +1,4 @@
-use crate::error::{HydraError, OrArithError};
+use crate::error::{UpdateMetadataError, OrArithError};
 use crate::state::{Fanout, FanoutMembershipMintVoucher, FanoutMembershipVoucher, FanoutMint};
 use anchor_lang::prelude::*;
 
@@ -33,7 +33,7 @@ pub fn update_fanout_for_add(fanout: &mut Account<Fanout>, shares: u64) -> Resul
     if less_shares.ge(&0) {
         Ok(())
     } else {
-        Err(HydraError::InsufficientShares.into())
+        Err(UpdateMetadataError::InsufficientShares.into())
     }
 }
 
@@ -125,5 +125,5 @@ pub fn current_lamports(
     let subtract_size = rent.minimum_balance(size).max(1);
     holding_account_lamports
         .checked_sub(subtract_size)
-        .ok_or_else(|| HydraError::NumericalOverflow.into())
+        .ok_or_else(|| UpdateMetadataError::NumericalOverflow.into())
 }

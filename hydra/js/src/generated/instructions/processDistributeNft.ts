@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -22,31 +22,19 @@ export type ProcessDistributeNftInstructionArgs = {
  * @category ProcessDistributeNft
  * @category generated
  */
-export const processDistributeNftStruct = new beet.BeetArgsStruct<
+const processDistributeNftStruct = new beet.BeetArgsStruct<
   ProcessDistributeNftInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['distributeForMint', beet.bool],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["distributeForMint", beet.bool],
   ],
-  'ProcessDistributeNftInstructionArgs',
+  "ProcessDistributeNftInstructionArgs"
 );
 /**
  * Accounts required by the _processDistributeNft_ instruction
- *
- * @property [**signer**] payer
- * @property [_writable_] member
- * @property [_writable_] membershipMintTokenAccount
- * @property [] membershipKey
- * @property [_writable_] membershipVoucher
- * @property [_writable_] fanout
- * @property [_writable_] holdingAccount
- * @property [_writable_] fanoutForMint
- * @property [_writable_] fanoutForMintMembershipVoucher
- * @property [] fanoutMint
- * @property [_writable_] fanoutMintMemberTokenAccount
  * @category Instructions
  * @category ProcessDistributeNft
  * @category generated
@@ -65,7 +53,9 @@ export type ProcessDistributeNftInstructionAccounts = {
   fanoutMintMemberTokenAccount: web3.PublicKey;
 };
 
-export const processDistributeNftInstructionDiscriminator = [108, 240, 68, 81, 144, 83, 58, 153];
+const processDistributeNftInstructionDiscriminator = [
+  108, 240, 68, 81, 144, 83, 58, 153,
+];
 
 /**
  * Creates a _ProcessDistributeNft_ instruction.
@@ -79,7 +69,7 @@ export const processDistributeNftInstructionDiscriminator = [108, 240, 68, 81, 1
  */
 export function createProcessDistributeNftInstruction(
   accounts: ProcessDistributeNftInstructionAccounts,
-  args: ProcessDistributeNftInstructionArgs,
+  args: ProcessDistributeNftInstructionArgs
 ) {
   const {
     payer,
@@ -173,7 +163,9 @@ export function createProcessDistributeNftInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

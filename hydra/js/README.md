@@ -1,11 +1,11 @@
-# mpl-hydra
+# mpl-update_metadata
 
-This package contains the hydra contract SDK code.
+This package contains the update_metadata contract SDK code.
 
 ## API Docs
 
 Find the
-[hydra API docs published here](https://metaplex-foundation.github.io/metaplex-program-library/docs/hydra/index.html).
+[update_metadata API docs published here](https://metaplex-foundation.github.io/metaplex-program-library/docs/update_metadata/index.html).
 
 ## Developing
 

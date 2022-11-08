@@ -1,4 +1,4 @@
-use crate::error::HydraError;
+use crate::error::UpdateMetadataError;
 use crate::state::{Fanout, MembershipModel};
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::instruction::Instruction;
@@ -6,7 +6,6 @@ use anchor_lang::solana_program::program_memory::sol_memcmp;
 use anchor_lang::solana_program::pubkey::PUBKEY_BYTES;
 use anchor_spl::token::TokenAccount;
 use mpl_token_metadata::state::Metadata;
-
 pub fn cmp_pubkeys(a: &Pubkey, b: &Pubkey) -> bool {
     sol_memcmp(a.as_ref(), b.as_ref(), PUBKEY_BYTES) == 0
 }
@@ -24,14 +23,14 @@ pub fn assert_derivation(
             return Err(err);
         }
         msg!("DerivedKeyInvalid");
-        return Err(HydraError::DerivedKeyInvalid.into());
+        return Err(UpdateMetadataError::DerivedKeyInvalid.into());
     }
     Ok(bump)
 }
 
 pub fn assert_owned_by(account: &AccountInfo, owner: &Pubkey) -> Result<()> {
     if !cmp_pubkeys(account.owner, owner) {
-        Err(HydraError::IncorrectOwner.into())
+        Err(UpdateMetadataError::IncorrectOwner.into())
     } else {
         Ok(())
     }
@@ -39,7 +38,7 @@ pub fn assert_owned_by(account: &AccountInfo, owner: &Pubkey) -> Result<()> {
 
 pub fn assert_membership_model(fanout: &Account<Fanout>, model: MembershipModel) -> Result<()> {
     if fanout.membership_model != model {
-        return Err(HydraError::InvalidMembershipModel.into());
+        return Err(UpdateMetadataError::InvalidMembershipModel.into());
     }
     Ok(())
 }
@@ -64,7 +63,7 @@ pub fn assert_ata(
 
 pub fn assert_shares_distributed(fanout: &Account<Fanout>) -> Result<()> {
     if fanout.total_available_shares != 0 {
-        return Err(HydraError::SharesArentAtMax.into());
+        return Err(UpdateMetadataError::SharesArentAtMax.into());
     }
     Ok(())
 }
@@ -78,13 +77,13 @@ pub fn assert_holding(
     let token_account_info = token_account.to_account_info();
     assert_owned_by(&token_account_info, &spl_token::id())?;
     if !cmp_pubkeys(&token_account.owner, owner.key) {
-        return Err(HydraError::IncorrectOwner.into());
+        return Err(UpdateMetadataError::IncorrectOwner.into());
     }
     if token_account.amount < 1 {
-        return Err(HydraError::WalletDoesNotOwnMembershipToken.into());
+        return Err(UpdateMetadataError::WalletDoesNotOwnMembershipToken.into());
     }
     if !cmp_pubkeys(&token_account.mint, &mint_info.key()) {
-        return Err(HydraError::MintDoesNotMatch.into());
+        return Err(UpdateMetadataError::MintDoesNotMatch.into());
     }
     Ok(())
 }
@@ -95,7 +94,7 @@ pub fn assert_distributed(
     membership_model: MembershipModel,
 ) -> Result<()> {
     if !cmp_pubkeys(&ix.program_id, &crate::id()) {
-        return Err(HydraError::MustDistribute.into());
+        return Err(UpdateMetadataError::MustDistribute.into());
     }
     let instruction_id = match membership_model {
         MembershipModel::Wallet => [252, 168, 167, 66, 40, 201, 182, 163],
@@ -103,10 +102,10 @@ pub fn assert_distributed(
         MembershipModel::Token => [126, 105, 46, 135, 28, 36, 117, 212],
     };
     if sol_memcmp(instruction_id.as_ref(), ix.data[0..8].as_ref(), 8) != 0 {
-        return Err(HydraError::MustDistribute.into());
+        return Err(UpdateMetadataError::MustDistribute.into());
     }
     if !cmp_pubkeys(subject, &ix.accounts[1].pubkey) {
-        return Err(HydraError::MustDistribute.into());
+        return Err(UpdateMetadataError::MustDistribute.into());
     }
     Ok(())
 }
@@ -117,7 +116,7 @@ pub fn assert_valid_metadata(
 ) -> Result<Metadata> {
     let meta = Metadata::from_account_info(metadata_account)?;
     if !cmp_pubkeys(&meta.mint, mint.key) {
-        return Err(HydraError::InvalidMetadata.into());
+        return Err(UpdateMetadataError::InvalidMetadata.into());
     }
     Ok(meta)
 }
@@ -129,7 +128,7 @@ pub fn assert_owned_by_one(account: &AccountInfo, owners: Vec<&Pubkey>) -> Resul
             return res;
         }
     }
-    Err(HydraError::IncorrectOwner.into())
+    Err(UpdateMetadataError::IncorrectOwner.into())
 }
 
 #[cfg(test)]

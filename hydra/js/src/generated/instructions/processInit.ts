@@ -5,11 +5,14 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import { InitializeFanoutArgs, initializeFanoutArgsBeet } from '../types/InitializeFanoutArgs';
-import { MembershipModel, membershipModelBeet } from '../types/MembershipModel';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
+import {
+  InitializeFanoutArgs,
+  initializeFanoutArgsBeet,
+} from "../types/InitializeFanoutArgs";
+import { MembershipModel, membershipModelBeet } from "../types/MembershipModel";
 
 /**
  * @category Instructions
@@ -25,25 +28,20 @@ export type ProcessInitInstructionArgs = {
  * @category ProcessInit
  * @category generated
  */
-export const processInitStruct = new beet.FixableBeetArgsStruct<
+const processInitStruct = new beet.FixableBeetArgsStruct<
   ProcessInitInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['args', initializeFanoutArgsBeet],
-    ['model', membershipModelBeet],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["args", initializeFanoutArgsBeet],
+    ["model", membershipModelBeet],
   ],
-  'ProcessInitInstructionArgs',
+  "ProcessInitInstructionArgs"
 );
 /**
  * Accounts required by the _processInit_ instruction
- *
- * @property [_writable_, **signer**] authority
- * @property [_writable_] fanout
- * @property [_writable_] holdingAccount
- * @property [_writable_] membershipMint
  * @category Instructions
  * @category ProcessInit
  * @category generated
@@ -55,7 +53,9 @@ export type ProcessInitInstructionAccounts = {
   membershipMint: web3.PublicKey;
 };
 
-export const processInitInstructionDiscriminator = [172, 5, 165, 143, 86, 159, 50, 237];
+const processInitInstructionDiscriminator = [
+  172, 5, 165, 143, 86, 159, 50, 237,
+];
 
 /**
  * Creates a _ProcessInit_ instruction.
@@ -69,7 +69,7 @@ export const processInitInstructionDiscriminator = [172, 5, 165, 143, 86, 159, 5
  */
 export function createProcessInitInstruction(
   accounts: ProcessInitInstructionAccounts,
-  args: ProcessInitInstructionArgs,
+  args: ProcessInitInstructionArgs
 ) {
   const { authority, fanout, holdingAccount, membershipMint } = accounts;
 
@@ -116,7 +116,9 @@ export function createProcessInitInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

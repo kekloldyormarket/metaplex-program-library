@@ -1,7 +1,7 @@
 use clap::{crate_description, crate_name, crate_version, App, Arg, SubCommand};
 use solana_clap_utils::input_validators::{is_url, is_valid_signer};
 
-pub const SHOW: &str = "show_hydra";
+pub const SHOW: &str = "show_update_metadata";
 
 pub fn init_api<'a, 'b>() -> App<'a, 'b> {
     App::new(crate_name!())
@@ -27,14 +27,14 @@ pub fn init_api<'a, 'b>() -> App<'a, 'b> {
         )
         .subcommand(
             SubCommand::with_name(SHOW)
-                .about("Show Hydra")
+                .about("Show UpdateMetadata")
                 .arg(
-                    Arg::with_name("hydra_address")
-                        .long("hydra_address")
+                    Arg::with_name("update_metadata_address")
+                        .long("update_metadata_address")
                         .global(true)
                         .value_name("NAME")
                         .takes_value(true)
-                        .help("The Hydra Address. Note this must be the parent address not the mint addresses"),
+                        .help("The UpdateMetadata Address. Note this must be the parent address not the mint addresses"),
                 )
         )
 }

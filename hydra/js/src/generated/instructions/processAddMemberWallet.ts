@@ -5,10 +5,10 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import { AddMemberArgs, addMemberArgsBeet } from '../types/AddMemberArgs';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
+import { AddMemberArgs, addMemberArgsBeet } from "../types/AddMemberArgs";
 
 /**
  * @category Instructions
@@ -23,24 +23,19 @@ export type ProcessAddMemberWalletInstructionArgs = {
  * @category ProcessAddMemberWallet
  * @category generated
  */
-export const processAddMemberWalletStruct = new beet.BeetArgsStruct<
+const processAddMemberWalletStruct = new beet.BeetArgsStruct<
   ProcessAddMemberWalletInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['args', addMemberArgsBeet],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["args", addMemberArgsBeet],
   ],
-  'ProcessAddMemberWalletInstructionArgs',
+  "ProcessAddMemberWalletInstructionArgs"
 );
 /**
  * Accounts required by the _processAddMemberWallet_ instruction
- *
- * @property [_writable_, **signer**] authority
- * @property [] member
- * @property [_writable_] fanout
- * @property [_writable_] membershipAccount
  * @category Instructions
  * @category ProcessAddMemberWallet
  * @category generated
@@ -52,7 +47,9 @@ export type ProcessAddMemberWalletInstructionAccounts = {
   membershipAccount: web3.PublicKey;
 };
 
-export const processAddMemberWalletInstructionDiscriminator = [201, 9, 59, 128, 69, 117, 220, 235];
+const processAddMemberWalletInstructionDiscriminator = [
+  201, 9, 59, 128, 69, 117, 220, 235,
+];
 
 /**
  * Creates a _ProcessAddMemberWallet_ instruction.
@@ -66,7 +63,7 @@ export const processAddMemberWalletInstructionDiscriminator = [201, 9, 59, 128, 
  */
 export function createProcessAddMemberWalletInstruction(
   accounts: ProcessAddMemberWalletInstructionAccounts,
-  args: ProcessAddMemberWalletInstructionArgs,
+  args: ProcessAddMemberWalletInstructionArgs
 ) {
   const { authority, member, fanout, membershipAccount } = accounts;
 
@@ -113,7 +110,9 @@ export function createProcessAddMemberWalletInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

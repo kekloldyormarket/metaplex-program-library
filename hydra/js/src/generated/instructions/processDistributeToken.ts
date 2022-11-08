@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -22,32 +22,19 @@ export type ProcessDistributeTokenInstructionArgs = {
  * @category ProcessDistributeToken
  * @category generated
  */
-export const processDistributeTokenStruct = new beet.BeetArgsStruct<
+const processDistributeTokenStruct = new beet.BeetArgsStruct<
   ProcessDistributeTokenInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['distributeForMint', beet.bool],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["distributeForMint", beet.bool],
   ],
-  'ProcessDistributeTokenInstructionArgs',
+  "ProcessDistributeTokenInstructionArgs"
 );
 /**
  * Accounts required by the _processDistributeToken_ instruction
- *
- * @property [**signer**] payer
- * @property [_writable_] member
- * @property [_writable_] membershipMintTokenAccount
- * @property [_writable_] membershipVoucher
- * @property [_writable_] fanout
- * @property [_writable_] holdingAccount
- * @property [_writable_] fanoutForMint
- * @property [_writable_] fanoutForMintMembershipVoucher
- * @property [] fanoutMint
- * @property [_writable_] fanoutMintMemberTokenAccount
- * @property [_writable_] membershipMint
- * @property [_writable_] memberStakeAccount
  * @category Instructions
  * @category ProcessDistributeToken
  * @category generated
@@ -67,7 +54,9 @@ export type ProcessDistributeTokenInstructionAccounts = {
   memberStakeAccount: web3.PublicKey;
 };
 
-export const processDistributeTokenInstructionDiscriminator = [126, 105, 46, 135, 28, 36, 117, 212];
+const processDistributeTokenInstructionDiscriminator = [
+  126, 105, 46, 135, 28, 36, 117, 212,
+];
 
 /**
  * Creates a _ProcessDistributeToken_ instruction.
@@ -81,7 +70,7 @@ export const processDistributeTokenInstructionDiscriminator = [126, 105, 46, 135
  */
 export function createProcessDistributeTokenInstruction(
   accounts: ProcessDistributeTokenInstructionAccounts,
-  args: ProcessDistributeTokenInstructionArgs,
+  args: ProcessDistributeTokenInstructionArgs
 ) {
   const {
     payer,
@@ -181,7 +170,9 @@ export function createProcessDistributeTokenInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

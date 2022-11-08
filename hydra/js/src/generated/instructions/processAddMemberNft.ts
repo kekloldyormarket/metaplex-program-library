@@ -5,10 +5,10 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import { AddMemberArgs, addMemberArgsBeet } from '../types/AddMemberArgs';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
+import { AddMemberArgs, addMemberArgsBeet } from "../types/AddMemberArgs";
 
 /**
  * @category Instructions
@@ -23,25 +23,19 @@ export type ProcessAddMemberNftInstructionArgs = {
  * @category ProcessAddMemberNft
  * @category generated
  */
-export const processAddMemberNftStruct = new beet.BeetArgsStruct<
+const processAddMemberNftStruct = new beet.BeetArgsStruct<
   ProcessAddMemberNftInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['args', addMemberArgsBeet],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["args", addMemberArgsBeet],
   ],
-  'ProcessAddMemberNftInstructionArgs',
+  "ProcessAddMemberNftInstructionArgs"
 );
 /**
  * Accounts required by the _processAddMemberNft_ instruction
- *
- * @property [_writable_, **signer**] authority
- * @property [_writable_] fanout
- * @property [_writable_] membershipAccount
- * @property [] mint
- * @property [] metadata
  * @category Instructions
  * @category ProcessAddMemberNft
  * @category generated
@@ -54,7 +48,9 @@ export type ProcessAddMemberNftInstructionAccounts = {
   metadata: web3.PublicKey;
 };
 
-export const processAddMemberNftInstructionDiscriminator = [92, 255, 105, 209, 25, 41, 3, 7];
+const processAddMemberNftInstructionDiscriminator = [
+  92, 255, 105, 209, 25, 41, 3, 7,
+];
 
 /**
  * Creates a _ProcessAddMemberNft_ instruction.
@@ -68,7 +64,7 @@ export const processAddMemberNftInstructionDiscriminator = [92, 255, 105, 209, 2
  */
 export function createProcessAddMemberNftInstruction(
   accounts: ProcessAddMemberNftInstructionAccounts,
-  args: ProcessAddMemberNftInstructionArgs,
+  args: ProcessAddMemberNftInstructionArgs
 ) {
   const { authority, fanout, membershipAccount, mint, metadata } = accounts;
 
@@ -120,7 +116,9 @@ export function createProcessAddMemberNftInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

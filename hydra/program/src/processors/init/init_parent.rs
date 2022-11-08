@@ -1,4 +1,4 @@
-use crate::error::HydraError;
+use crate::error::UpdateMetadataError;
 use crate::state::{Fanout, MembershipModel};
 use anchor_lang::prelude::*;
 use anchor_spl::token::{Mint, Token};
@@ -70,7 +70,7 @@ pub fn init(
             fanout.total_shares = membership_mint.supply;
             fanout.total_available_shares = 0;
             if fanout.membership_mint.is_none() {
-                return Err(HydraError::MintAccountRequired.into());
+                return Err(UpdateMetadataError::MintAccountRequired.into());
             }
             let mint = &ctx.accounts.membership_mint;
             fanout.total_staked_shares = Some(0);

@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -22,29 +22,19 @@ export type ProcessDistributeWalletInstructionArgs = {
  * @category ProcessDistributeWallet
  * @category generated
  */
-export const processDistributeWalletStruct = new beet.BeetArgsStruct<
+const processDistributeWalletStruct = new beet.BeetArgsStruct<
   ProcessDistributeWalletInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['distributeForMint', beet.bool],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["distributeForMint", beet.bool],
   ],
-  'ProcessDistributeWalletInstructionArgs',
+  "ProcessDistributeWalletInstructionArgs"
 );
 /**
  * Accounts required by the _processDistributeWallet_ instruction
- *
- * @property [**signer**] payer
- * @property [_writable_] member
- * @property [_writable_] membershipVoucher
- * @property [_writable_] fanout
- * @property [_writable_] holdingAccount
- * @property [_writable_] fanoutForMint
- * @property [_writable_] fanoutForMintMembershipVoucher
- * @property [] fanoutMint
- * @property [_writable_] fanoutMintMemberTokenAccount
  * @category Instructions
  * @category ProcessDistributeWallet
  * @category generated
@@ -61,7 +51,7 @@ export type ProcessDistributeWalletInstructionAccounts = {
   fanoutMintMemberTokenAccount: web3.PublicKey;
 };
 
-export const processDistributeWalletInstructionDiscriminator = [
+const processDistributeWalletInstructionDiscriminator = [
   252, 168, 167, 66, 40, 201, 182, 163,
 ];
 
@@ -77,7 +67,7 @@ export const processDistributeWalletInstructionDiscriminator = [
  */
 export function createProcessDistributeWalletInstruction(
   accounts: ProcessDistributeWalletInstructionAccounts,
-  args: ProcessDistributeWalletInstructionArgs,
+  args: ProcessDistributeWalletInstructionArgs
 ) {
   const {
     payer,
@@ -159,7 +149,9 @@ export function createProcessDistributeWalletInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

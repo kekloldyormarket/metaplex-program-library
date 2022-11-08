@@ -2,14 +2,14 @@
 // @ts-check
 const base = require('../../.base-ammanrc.js');
 
-const hydraValidator = {
-  programs: [base.programs.metadata, base.programs.hydra],
+const update_metadataValidator = {
+  programs: [base.programs.metadata, base.programs.update_metadata],
   commitment: 'confirmed',
   verifyFees: false,
 };
 
 const validator = {
-  hydraValidator,
-  programs: [base.programs.metadata, base.programs.hydra],
+  update_metadataValidator,
+  programs: [base.programs.metadata, base.programs.update_metadata],
 };
 module.exports = { validator };

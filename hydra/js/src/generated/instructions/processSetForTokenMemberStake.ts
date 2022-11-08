@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -22,27 +22,19 @@ export type ProcessSetForTokenMemberStakeInstructionArgs = {
  * @category ProcessSetForTokenMemberStake
  * @category generated
  */
-export const processSetForTokenMemberStakeStruct = new beet.BeetArgsStruct<
+const processSetForTokenMemberStakeStruct = new beet.BeetArgsStruct<
   ProcessSetForTokenMemberStakeInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['shares', beet.u64],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["shares", beet.u64],
   ],
-  'ProcessSetForTokenMemberStakeInstructionArgs',
+  "ProcessSetForTokenMemberStakeInstructionArgs"
 );
 /**
  * Accounts required by the _processSetForTokenMemberStake_ instruction
- *
- * @property [_writable_, **signer**] authority
- * @property [] member
- * @property [_writable_] fanout
- * @property [_writable_] membershipVoucher
- * @property [_writable_] membershipMint
- * @property [_writable_] membershipMintTokenAccount
- * @property [_writable_] memberStakeAccount
  * @category Instructions
  * @category ProcessSetForTokenMemberStake
  * @category generated
@@ -57,7 +49,7 @@ export type ProcessSetForTokenMemberStakeInstructionAccounts = {
   memberStakeAccount: web3.PublicKey;
 };
 
-export const processSetForTokenMemberStakeInstructionDiscriminator = [
+const processSetForTokenMemberStakeInstructionDiscriminator = [
   210, 40, 6, 254, 2, 80, 154, 109,
 ];
 
@@ -73,7 +65,7 @@ export const processSetForTokenMemberStakeInstructionDiscriminator = [
  */
 export function createProcessSetForTokenMemberStakeInstruction(
   accounts: ProcessSetForTokenMemberStakeInstructionAccounts,
-  args: ProcessSetForTokenMemberStakeInstructionArgs,
+  args: ProcessSetForTokenMemberStakeInstructionArgs
 ) {
   const {
     authority,
@@ -86,7 +78,8 @@ export function createProcessSetForTokenMemberStakeInstruction(
   } = accounts;
 
   const [data] = processSetForTokenMemberStakeStruct.serialize({
-    instructionDiscriminator: processSetForTokenMemberStakeInstructionDiscriminator,
+    instructionDiscriminator:
+      processSetForTokenMemberStakeInstructionDiscriminator,
     ...args,
   });
   const keys: web3.AccountMeta[] = [
@@ -138,7 +131,9 @@ export function createProcessSetForTokenMemberStakeInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

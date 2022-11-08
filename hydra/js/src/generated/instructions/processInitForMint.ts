@@ -5,8 +5,8 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -21,25 +21,19 @@ export type ProcessInitForMintInstructionArgs = {
  * @category ProcessInitForMint
  * @category generated
  */
-export const processInitForMintStruct = new beet.BeetArgsStruct<
+const processInitForMintStruct = new beet.BeetArgsStruct<
   ProcessInitForMintInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['bumpSeed', beet.u8],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["bumpSeed", beet.u8],
   ],
-  'ProcessInitForMintInstructionArgs',
+  "ProcessInitForMintInstructionArgs"
 );
 /**
  * Accounts required by the _processInitForMint_ instruction
- *
- * @property [_writable_, **signer**] authority
- * @property [_writable_] fanout
- * @property [_writable_] fanoutForMint
- * @property [_writable_] mintHoldingAccount
- * @property [] mint
  * @category Instructions
  * @category ProcessInitForMint
  * @category generated
@@ -52,7 +46,9 @@ export type ProcessInitForMintInstructionAccounts = {
   mint: web3.PublicKey;
 };
 
-export const processInitForMintInstructionDiscriminator = [140, 150, 232, 195, 93, 219, 35, 170];
+const processInitForMintInstructionDiscriminator = [
+  140, 150, 232, 195, 93, 219, 35, 170,
+];
 
 /**
  * Creates a _ProcessInitForMint_ instruction.
@@ -66,9 +62,10 @@ export const processInitForMintInstructionDiscriminator = [140, 150, 232, 195, 9
  */
 export function createProcessInitForMintInstruction(
   accounts: ProcessInitForMintInstructionAccounts,
-  args: ProcessInitForMintInstructionArgs,
+  args: ProcessInitForMintInstructionArgs
 ) {
-  const { authority, fanout, fanoutForMint, mintHoldingAccount, mint } = accounts;
+  const { authority, fanout, fanoutForMint, mintHoldingAccount, mint } =
+    accounts;
 
   const [data] = processInitForMintStruct.serialize({
     instructionDiscriminator: processInitForMintInstructionDiscriminator,
@@ -113,7 +110,9 @@ export function createProcessInitForMintInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

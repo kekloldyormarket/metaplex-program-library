@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from "@solana/web3.js";
+import * as beet from "@metaplex-foundation/beet";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
 
 /**
  * Arguments used to create {@link FanoutMembershipVoucher}
@@ -23,7 +23,9 @@ export type FanoutMembershipVoucherArgs = {
   shares: beet.bignum;
 };
 
-const fanoutMembershipVoucherDiscriminator = [185, 62, 74, 60, 105, 158, 178, 125];
+const fanoutMembershipVoucherDiscriminator = [
+  185, 62, 74, 60, 105, 158, 178, 125,
+];
 /**
  * Holds the data for the {@link FanoutMembershipVoucher} Account and provides de/serialization
  * functionality for that data
@@ -38,7 +40,7 @@ export class FanoutMembershipVoucher implements FanoutMembershipVoucherArgs {
     readonly lastInflow: beet.bignum,
     readonly bumpSeed: number,
     readonly membershipKey: web3.PublicKey,
-    readonly shares: beet.bignum,
+    readonly shares: beet.bignum
   ) {}
 
   /**
@@ -51,7 +53,7 @@ export class FanoutMembershipVoucher implements FanoutMembershipVoucherArgs {
       args.lastInflow,
       args.bumpSeed,
       args.membershipKey,
-      args.shares,
+      args.shares
     );
   }
 
@@ -61,7 +63,7 @@ export class FanoutMembershipVoucher implements FanoutMembershipVoucherArgs {
    */
   static fromAccountInfo(
     accountInfo: web3.AccountInfo<Buffer>,
-    offset = 0,
+    offset = 0
   ): [FanoutMembershipVoucher, number] {
     return FanoutMembershipVoucher.deserialize(accountInfo.data, offset);
   }
@@ -74,11 +76,13 @@ export class FanoutMembershipVoucher implements FanoutMembershipVoucherArgs {
    */
   static async fromAccountAddress(
     connection: web3.Connection,
-    address: web3.PublicKey,
+    address: web3.PublicKey
   ): Promise<FanoutMembershipVoucher> {
     const accountInfo = await connection.getAccountInfo(address);
     if (accountInfo == null) {
-      throw new Error(`Unable to find FanoutMembershipVoucher account at ${address}`);
+      throw new Error(
+        `Unable to find FanoutMembershipVoucher account at ${address}`
+      );
     }
     return FanoutMembershipVoucher.fromAccountInfo(accountInfo, 0)[0];
   }
@@ -87,7 +91,10 @@ export class FanoutMembershipVoucher implements FanoutMembershipVoucherArgs {
    * Deserializes the {@link FanoutMembershipVoucher} from the provided data Buffer.
    * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
    */
-  static deserialize(buf: Buffer, offset = 0): [FanoutMembershipVoucher, number] {
+  static deserialize(
+    buf: Buffer,
+    offset = 0
+  ): [FanoutMembershipVoucher, number] {
     return fanoutMembershipVoucherBeet.deserialize(buf, offset);
   }
 
@@ -118,11 +125,11 @@ export class FanoutMembershipVoucher implements FanoutMembershipVoucherArgs {
    */
   static async getMinimumBalanceForRentExemption(
     connection: web3.Connection,
-    commitment?: web3.Commitment,
+    commitment?: web3.Commitment
   ): Promise<number> {
     return connection.getMinimumBalanceForRentExemption(
       FanoutMembershipVoucher.byteSize,
-      commitment,
+      commitment
     );
   }
 
@@ -141,41 +148,11 @@ export class FanoutMembershipVoucher implements FanoutMembershipVoucherArgs {
   pretty() {
     return {
       fanout: this.fanout.toBase58(),
-      totalInflow: (() => {
-        const x = <{ toNumber: () => number }>this.totalInflow;
-        if (typeof x.toNumber === 'function') {
-          try {
-            return x.toNumber();
-          } catch (_) {
-            return x;
-          }
-        }
-        return x;
-      })(),
-      lastInflow: (() => {
-        const x = <{ toNumber: () => number }>this.lastInflow;
-        if (typeof x.toNumber === 'function') {
-          try {
-            return x.toNumber();
-          } catch (_) {
-            return x;
-          }
-        }
-        return x;
-      })(),
+      totalInflow: this.totalInflow,
+      lastInflow: this.lastInflow,
       bumpSeed: this.bumpSeed,
       membershipKey: this.membershipKey.toBase58(),
-      shares: (() => {
-        const x = <{ toNumber: () => number }>this.shares;
-        if (typeof x.toNumber === 'function') {
-          try {
-            return x.toNumber();
-          } catch (_) {
-            return x;
-          }
-        }
-        return x;
-      })(),
+      shares: this.shares,
     };
   }
 }
@@ -191,14 +168,14 @@ export const fanoutMembershipVoucherBeet = new beet.BeetStruct<
   }
 >(
   [
-    ['accountDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['fanout', beetSolana.publicKey],
-    ['totalInflow', beet.u64],
-    ['lastInflow', beet.u64],
-    ['bumpSeed', beet.u8],
-    ['membershipKey', beetSolana.publicKey],
-    ['shares', beet.u64],
+    ["accountDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["fanout", beetSolana.publicKey],
+    ["totalInflow", beet.u64],
+    ["lastInflow", beet.u64],
+    ["bumpSeed", beet.u8],
+    ["membershipKey", beetSolana.publicKey],
+    ["shares", beet.u64],
   ],
   FanoutMembershipVoucher.fromArgs,
-  'FanoutMembershipVoucher',
+  "FanoutMembershipVoucher"
 );

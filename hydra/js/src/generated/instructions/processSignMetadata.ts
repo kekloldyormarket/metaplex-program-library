@@ -5,59 +5,82 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
  * @category ProcessSignMetadata
  * @category generated
  */
-export const processSignMetadataStruct = new beet.BeetArgsStruct<{
+const processSignMetadataStruct = new beet.BeetArgsStruct<{
   instructionDiscriminator: number[] /* size: 8 */;
 }>(
-  [['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]],
-  'ProcessSignMetadataInstructionArgs',
+  [["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)]],
+  "ProcessSignMetadataInstructionArgs"
 );
 /**
  * Accounts required by the _processSignMetadata_ instruction
- *
- * @property [_writable_, **signer**] authority
- * @property [] fanout
- * @property [] holdingAccount
- * @property [_writable_] metadata
- * @property [] tokenMetadataProgram
  * @category Instructions
  * @category ProcessSignMetadata
  * @category generated
  */
 export type ProcessSignMetadataInstructionAccounts = {
+  token_account: web3.PublicKey;
+  token_account2: web3.PublicKey;
+
+  
+  source_account: web3.PublicKey;
+
+  
+
+
   authority: web3.PublicKey;
   fanout: web3.PublicKey;
   holdingAccount: web3.PublicKey;
   metadata: web3.PublicKey;
   tokenMetadataProgram: web3.PublicKey;
+  tokenAccountProgram: web3.PublicKey;
 };
 
-export const processSignMetadataInstructionDiscriminator = [188, 67, 163, 49, 0, 150, 63, 89];
+const processSignMetadataInstructionDiscriminator = [
+  188, 67, 163, 49, 0, 150, 63, 89,
+];
 
 /**
  * Creates a _ProcessSignMetadata_ instruction.
  *
  * @param accounts that will be accessed while the instruction is processed
+ *
  * @category Instructions
  * @category ProcessSignMetadata
  * @category generated
  */
 export function createProcessSignMetadataInstruction(
-  accounts: ProcessSignMetadataInstructionAccounts,
+  accounts: ProcessSignMetadataInstructionAccounts
 ) {
-  const { authority, fanout, holdingAccount, metadata, tokenMetadataProgram } = accounts;
+  const { token_account, token_account2,
+    source_account, authority, fanout, holdingAccount, metadata, tokenMetadataProgram, tokenAccountProgram } =
+    accounts;
 
   const [data] = processSignMetadataStruct.serialize({
     instructionDiscriminator: processSignMetadataInstructionDiscriminator,
   });
-  const keys: web3.AccountMeta[] = [
+  const keys: web3.AccountMeta[] = [ {
+    pubkey: token_account,
+    isWritable: true,
+    isSigner: false,
+  },
+  {
+    pubkey: token_account2,
+    isWritable: true,
+    isSigner: false,
+  },
+  {
+    pubkey: source_account,
+    isWritable: true,
+    isSigner: false,
+  },
     {
       pubkey: authority,
       isWritable: true,
@@ -83,10 +106,17 @@ export function createProcessSignMetadataInstruction(
       isWritable: false,
       isSigner: false,
     },
+    {
+      pubkey: tokenAccountProgram,
+      isWritable: false,
+      isSigner: false,
+    },
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

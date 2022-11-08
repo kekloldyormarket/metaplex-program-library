@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as splToken from '@solana/spl-token';
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as splToken from "@solana/spl-token";
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -22,26 +22,19 @@ export type ProcessSetTokenMemberStakeInstructionArgs = {
  * @category ProcessSetTokenMemberStake
  * @category generated
  */
-export const processSetTokenMemberStakeStruct = new beet.BeetArgsStruct<
+const processSetTokenMemberStakeStruct = new beet.BeetArgsStruct<
   ProcessSetTokenMemberStakeInstructionArgs & {
     instructionDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['shares', beet.u64],
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["shares", beet.u64],
   ],
-  'ProcessSetTokenMemberStakeInstructionArgs',
+  "ProcessSetTokenMemberStakeInstructionArgs"
 );
 /**
  * Accounts required by the _processSetTokenMemberStake_ instruction
- *
- * @property [_writable_, **signer**] member
- * @property [_writable_] fanout
- * @property [_writable_] membershipVoucher
- * @property [_writable_] membershipMint
- * @property [_writable_] membershipMintTokenAccount
- * @property [_writable_] memberStakeAccount
  * @category Instructions
  * @category ProcessSetTokenMemberStake
  * @category generated
@@ -55,7 +48,7 @@ export type ProcessSetTokenMemberStakeInstructionAccounts = {
   memberStakeAccount: web3.PublicKey;
 };
 
-export const processSetTokenMemberStakeInstructionDiscriminator = [
+const processSetTokenMemberStakeInstructionDiscriminator = [
   167, 29, 12, 30, 44, 193, 249, 142,
 ];
 
@@ -71,7 +64,7 @@ export const processSetTokenMemberStakeInstructionDiscriminator = [
  */
 export function createProcessSetTokenMemberStakeInstruction(
   accounts: ProcessSetTokenMemberStakeInstructionAccounts,
-  args: ProcessSetTokenMemberStakeInstructionArgs,
+  args: ProcessSetTokenMemberStakeInstructionArgs
 ) {
   const {
     member,
@@ -83,7 +76,8 @@ export function createProcessSetTokenMemberStakeInstruction(
   } = accounts;
 
   const [data] = processSetTokenMemberStakeStruct.serialize({
-    instructionDiscriminator: processSetTokenMemberStakeInstructionDiscriminator,
+    instructionDiscriminator:
+      processSetTokenMemberStakeInstructionDiscriminator,
     ...args,
   });
   const keys: web3.AccountMeta[] = [
@@ -130,7 +124,9 @@ export function createProcessSetTokenMemberStakeInstruction(
   ];
 
   const ix = new web3.TransactionInstruction({
-    programId: new web3.PublicKey('hyDQ4Nz1eYyegS6JfenyKwKzYxRsCWCriYSAjtzP4Vg'),
+    programId: new web3.PublicKey(
+      "5F6oQHdPrQBLdENyhWUAE4mCUN13ZewVxi5yBnZFb9LW"
+    ),
     keys,
     data,
   });

@@ -19,17 +19,20 @@ const createErrorFromNameLookup: Map<string, () => ErrorWithCode> = new Map();
  */
 export class BadArtithmeticError extends Error {
   readonly code: number = 0x1770;
-  readonly name: string = 'BadArtithmetic';
+  readonly name: string = "BadArtithmetic";
   constructor() {
-    super('Encountered an arithmetic error');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Encountered an arithmetic error");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, BadArtithmeticError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1770, () => new BadArtithmeticError());
-createErrorFromNameLookup.set('BadArtithmetic', () => new BadArtithmeticError());
+createErrorFromNameLookup.set(
+  "BadArtithmetic",
+  () => new BadArtithmeticError()
+);
 
 /**
  * InvalidAuthority: 'Invalid authority'
@@ -39,17 +42,20 @@ createErrorFromNameLookup.set('BadArtithmetic', () => new BadArtithmeticError())
  */
 export class InvalidAuthorityError extends Error {
   readonly code: number = 0x1771;
-  readonly name: string = 'InvalidAuthority';
+  readonly name: string = "InvalidAuthority";
   constructor() {
-    super('Invalid authority');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Invalid authority");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InvalidAuthorityError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1771, () => new InvalidAuthorityError());
-createErrorFromNameLookup.set('InvalidAuthority', () => new InvalidAuthorityError());
+createErrorFromNameLookup.set(
+  "InvalidAuthority",
+  () => new InvalidAuthorityError()
+);
 
 /**
  * InsufficientShares: 'Not Enough Available Shares'
@@ -59,17 +65,20 @@ createErrorFromNameLookup.set('InvalidAuthority', () => new InvalidAuthorityErro
  */
 export class InsufficientSharesError extends Error {
   readonly code: number = 0x1772;
-  readonly name: string = 'InsufficientShares';
+  readonly name: string = "InsufficientShares";
   constructor() {
-    super('Not Enough Available Shares');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Not Enough Available Shares");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InsufficientSharesError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1772, () => new InsufficientSharesError());
-createErrorFromNameLookup.set('InsufficientShares', () => new InsufficientSharesError());
+createErrorFromNameLookup.set(
+  "InsufficientShares",
+  () => new InsufficientSharesError()
+);
 
 /**
  * SharesArentAtMax: 'All available shares must be assigned to a member'
@@ -79,17 +88,20 @@ createErrorFromNameLookup.set('InsufficientShares', () => new InsufficientShares
  */
 export class SharesArentAtMaxError extends Error {
   readonly code: number = 0x1773;
-  readonly name: string = 'SharesArentAtMax';
+  readonly name: string = "SharesArentAtMax";
   constructor() {
-    super('All available shares must be assigned to a member');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("All available shares must be assigned to a member");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, SharesArentAtMaxError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1773, () => new SharesArentAtMaxError());
-createErrorFromNameLookup.set('SharesArentAtMax', () => new SharesArentAtMaxError());
+createErrorFromNameLookup.set(
+  "SharesArentAtMax",
+  () => new SharesArentAtMaxError()
+);
 
 /**
  * NewMintAccountRequired: 'A New mint account must be provided'
@@ -99,17 +111,20 @@ createErrorFromNameLookup.set('SharesArentAtMax', () => new SharesArentAtMaxErro
  */
 export class NewMintAccountRequiredError extends Error {
   readonly code: number = 0x1774;
-  readonly name: string = 'NewMintAccountRequired';
+  readonly name: string = "NewMintAccountRequired";
   constructor() {
-    super('A New mint account must be provided');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("A New mint account must be provided");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, NewMintAccountRequiredError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1774, () => new NewMintAccountRequiredError());
-createErrorFromNameLookup.set('NewMintAccountRequired', () => new NewMintAccountRequiredError());
+createErrorFromNameLookup.set(
+  "NewMintAccountRequired",
+  () => new NewMintAccountRequiredError()
+);
 
 /**
  * MintAccountRequired: 'A Token type Fanout requires a Membership Mint'
@@ -119,17 +134,20 @@ createErrorFromNameLookup.set('NewMintAccountRequired', () => new NewMintAccount
  */
 export class MintAccountRequiredError extends Error {
   readonly code: number = 0x1775;
-  readonly name: string = 'MintAccountRequired';
+  readonly name: string = "MintAccountRequired";
   constructor() {
-    super('A Token type Fanout requires a Membership Mint');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("A Token type Fanout requires a Membership Mint");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, MintAccountRequiredError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1775, () => new MintAccountRequiredError());
-createErrorFromNameLookup.set('MintAccountRequired', () => new MintAccountRequiredError());
+createErrorFromNameLookup.set(
+  "MintAccountRequired",
+  () => new MintAccountRequiredError()
+);
 
 /**
  * InvalidMembershipModel: 'Invalid Membership Model'
@@ -139,17 +157,20 @@ createErrorFromNameLookup.set('MintAccountRequired', () => new MintAccountRequir
  */
 export class InvalidMembershipModelError extends Error {
   readonly code: number = 0x1776;
-  readonly name: string = 'InvalidMembershipModel';
+  readonly name: string = "InvalidMembershipModel";
   constructor() {
-    super('Invalid Membership Model');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Invalid Membership Model");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InvalidMembershipModelError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1776, () => new InvalidMembershipModelError());
-createErrorFromNameLookup.set('InvalidMembershipModel', () => new InvalidMembershipModelError());
+createErrorFromNameLookup.set(
+  "InvalidMembershipModel",
+  () => new InvalidMembershipModelError()
+);
 
 /**
  * InvalidMembershipVoucher: 'Invalid Membership Voucher'
@@ -159,19 +180,22 @@ createErrorFromNameLookup.set('InvalidMembershipModel', () => new InvalidMembers
  */
 export class InvalidMembershipVoucherError extends Error {
   readonly code: number = 0x1777;
-  readonly name: string = 'InvalidMembershipVoucher';
+  readonly name: string = "InvalidMembershipVoucher";
   constructor() {
-    super('Invalid Membership Voucher');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Invalid Membership Voucher");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InvalidMembershipVoucherError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x1777, () => new InvalidMembershipVoucherError());
+createErrorFromCodeLookup.set(
+  0x1777,
+  () => new InvalidMembershipVoucherError()
+);
 createErrorFromNameLookup.set(
-  'InvalidMembershipVoucher',
-  () => new InvalidMembershipVoucherError(),
+  "InvalidMembershipVoucher",
+  () => new InvalidMembershipVoucherError()
 );
 
 /**
@@ -182,17 +206,20 @@ createErrorFromNameLookup.set(
  */
 export class MintDoesNotMatchError extends Error {
   readonly code: number = 0x1778;
-  readonly name: string = 'MintDoesNotMatch';
+  readonly name: string = "MintDoesNotMatch";
   constructor() {
-    super('Invalid Mint for the config');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Invalid Mint for the config");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, MintDoesNotMatchError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1778, () => new MintDoesNotMatchError());
-createErrorFromNameLookup.set('MintDoesNotMatch', () => new MintDoesNotMatchError());
+createErrorFromNameLookup.set(
+  "MintDoesNotMatch",
+  () => new MintDoesNotMatchError()
+);
 
 /**
  * InvalidHoldingAccount: 'Holding account does not match the config'
@@ -202,17 +229,20 @@ createErrorFromNameLookup.set('MintDoesNotMatch', () => new MintDoesNotMatchErro
  */
 export class InvalidHoldingAccountError extends Error {
   readonly code: number = 0x1779;
-  readonly name: string = 'InvalidHoldingAccount';
+  readonly name: string = "InvalidHoldingAccount";
   constructor() {
-    super('Holding account does not match the config');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Holding account does not match the config");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InvalidHoldingAccountError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1779, () => new InvalidHoldingAccountError());
-createErrorFromNameLookup.set('InvalidHoldingAccount', () => new InvalidHoldingAccountError());
+createErrorFromNameLookup.set(
+  "InvalidHoldingAccount",
+  () => new InvalidHoldingAccountError()
+);
 
 /**
  * HoldingAccountMustBeAnATA: 'A Mint holding account must be an ata for the mint owned by the config'
@@ -222,19 +252,24 @@ createErrorFromNameLookup.set('InvalidHoldingAccount', () => new InvalidHoldingA
  */
 export class HoldingAccountMustBeAnATAError extends Error {
   readonly code: number = 0x177a;
-  readonly name: string = 'HoldingAccountMustBeAnATA';
+  readonly name: string = "HoldingAccountMustBeAnATA";
   constructor() {
-    super('A Mint holding account must be an ata for the mint owned by the config');
-    if (typeof Error.captureStackTrace === 'function') {
+    super(
+      "A Mint holding account must be an ata for the mint owned by the config"
+    );
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, HoldingAccountMustBeAnATAError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x177a, () => new HoldingAccountMustBeAnATAError());
+createErrorFromCodeLookup.set(
+  0x177a,
+  () => new HoldingAccountMustBeAnATAError()
+);
 createErrorFromNameLookup.set(
-  'HoldingAccountMustBeAnATA',
-  () => new HoldingAccountMustBeAnATAError(),
+  "HoldingAccountMustBeAnATA",
+  () => new HoldingAccountMustBeAnATAError()
 );
 
 /**
@@ -245,17 +280,20 @@ createErrorFromNameLookup.set(
  */
 export class DerivedKeyInvalidError extends Error {
   readonly code: number = 0x177b;
-  readonly name: string = 'DerivedKeyInvalid';
+  readonly name: string = "DerivedKeyInvalid";
   constructor() {
-    super('');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, DerivedKeyInvalidError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x177b, () => new DerivedKeyInvalidError());
-createErrorFromNameLookup.set('DerivedKeyInvalid', () => new DerivedKeyInvalidError());
+createErrorFromNameLookup.set(
+  "DerivedKeyInvalid",
+  () => new DerivedKeyInvalidError()
+);
 
 /**
  * IncorrectOwner: ''
@@ -265,17 +303,20 @@ createErrorFromNameLookup.set('DerivedKeyInvalid', () => new DerivedKeyInvalidEr
  */
 export class IncorrectOwnerError extends Error {
   readonly code: number = 0x177c;
-  readonly name: string = 'IncorrectOwner';
+  readonly name: string = "IncorrectOwner";
   constructor() {
-    super('');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, IncorrectOwnerError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x177c, () => new IncorrectOwnerError());
-createErrorFromNameLookup.set('IncorrectOwner', () => new IncorrectOwnerError());
+createErrorFromNameLookup.set(
+  "IncorrectOwner",
+  () => new IncorrectOwnerError()
+);
 
 /**
  * WalletDoesNotOwnMembershipToken: 'Wallet Does not Own Membership Token'
@@ -285,19 +326,22 @@ createErrorFromNameLookup.set('IncorrectOwner', () => new IncorrectOwnerError())
  */
 export class WalletDoesNotOwnMembershipTokenError extends Error {
   readonly code: number = 0x177d;
-  readonly name: string = 'WalletDoesNotOwnMembershipToken';
+  readonly name: string = "WalletDoesNotOwnMembershipToken";
   constructor() {
-    super('Wallet Does not Own Membership Token');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Wallet Does not Own Membership Token");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, WalletDoesNotOwnMembershipTokenError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x177d, () => new WalletDoesNotOwnMembershipTokenError());
+createErrorFromCodeLookup.set(
+  0x177d,
+  () => new WalletDoesNotOwnMembershipTokenError()
+);
 createErrorFromNameLookup.set(
-  'WalletDoesNotOwnMembershipToken',
-  () => new WalletDoesNotOwnMembershipTokenError(),
+  "WalletDoesNotOwnMembershipToken",
+  () => new WalletDoesNotOwnMembershipTokenError()
 );
 
 /**
@@ -308,17 +352,20 @@ createErrorFromNameLookup.set(
  */
 export class InvalidMetadataError extends Error {
   readonly code: number = 0x177e;
-  readonly name: string = 'InvalidMetadata';
+  readonly name: string = "InvalidMetadata";
   constructor() {
-    super('The Metadata specified is not valid Token Metadata');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("The Metadata specified is not valid Token Metadata");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InvalidMetadataError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x177e, () => new InvalidMetadataError());
-createErrorFromNameLookup.set('InvalidMetadata', () => new InvalidMetadataError());
+createErrorFromNameLookup.set(
+  "InvalidMetadata",
+  () => new InvalidMetadataError()
+);
 
 /**
  * NumericalOverflow: ''
@@ -328,17 +375,20 @@ createErrorFromNameLookup.set('InvalidMetadata', () => new InvalidMetadataError(
  */
 export class NumericalOverflowError extends Error {
   readonly code: number = 0x177f;
-  readonly name: string = 'NumericalOverflow';
+  readonly name: string = "NumericalOverflow";
   constructor() {
-    super('');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, NumericalOverflowError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x177f, () => new NumericalOverflowError());
-createErrorFromNameLookup.set('NumericalOverflow', () => new NumericalOverflowError());
+createErrorFromNameLookup.set(
+  "NumericalOverflow",
+  () => new NumericalOverflowError()
+);
 
 /**
  * InsufficientBalanceToDistribute: 'Not enough new balance to distribute'
@@ -348,19 +398,22 @@ createErrorFromNameLookup.set('NumericalOverflow', () => new NumericalOverflowEr
  */
 export class InsufficientBalanceToDistributeError extends Error {
   readonly code: number = 0x1780;
-  readonly name: string = 'InsufficientBalanceToDistribute';
+  readonly name: string = "InsufficientBalanceToDistribute";
   constructor() {
-    super('Not enough new balance to distribute');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Not enough new balance to distribute");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InsufficientBalanceToDistributeError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x1780, () => new InsufficientBalanceToDistributeError());
+createErrorFromCodeLookup.set(
+  0x1780,
+  () => new InsufficientBalanceToDistributeError()
+);
 createErrorFromNameLookup.set(
-  'InsufficientBalanceToDistribute',
-  () => new InsufficientBalanceToDistributeError(),
+  "InsufficientBalanceToDistribute",
+  () => new InsufficientBalanceToDistributeError()
 );
 
 /**
@@ -371,17 +424,20 @@ createErrorFromNameLookup.set(
  */
 export class InvalidFanoutForMintError extends Error {
   readonly code: number = 0x1781;
-  readonly name: string = 'InvalidFanoutForMint';
+  readonly name: string = "InvalidFanoutForMint";
   constructor() {
-    super('');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InvalidFanoutForMintError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1781, () => new InvalidFanoutForMintError());
-createErrorFromNameLookup.set('InvalidFanoutForMint', () => new InvalidFanoutForMintError());
+createErrorFromNameLookup.set(
+  "InvalidFanoutForMint",
+  () => new InvalidFanoutForMintError()
+);
 
 /**
  * MustDistribute: 'This operation must be the instruction right after a distrobution on the same accounts.'
@@ -391,19 +447,22 @@ createErrorFromNameLookup.set('InvalidFanoutForMint', () => new InvalidFanoutFor
  */
 export class MustDistributeError extends Error {
   readonly code: number = 0x1782;
-  readonly name: string = 'MustDistribute';
+  readonly name: string = "MustDistribute";
   constructor() {
     super(
-      'This operation must be the instruction right after a distrobution on the same accounts.',
+      "This operation must be the instruction right after a distrobution on the same accounts."
     );
-    if (typeof Error.captureStackTrace === 'function') {
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, MustDistributeError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1782, () => new MustDistributeError());
-createErrorFromNameLookup.set('MustDistribute', () => new MustDistributeError());
+createErrorFromNameLookup.set(
+  "MustDistribute",
+  () => new MustDistributeError()
+);
 
 /**
  * InvalidStakeAta: ''
@@ -413,17 +472,20 @@ createErrorFromNameLookup.set('MustDistribute', () => new MustDistributeError())
  */
 export class InvalidStakeAtaError extends Error {
   readonly code: number = 0x1783;
-  readonly name: string = 'InvalidStakeAta';
+  readonly name: string = "InvalidStakeAta";
   constructor() {
-    super('');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InvalidStakeAtaError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1783, () => new InvalidStakeAtaError());
-createErrorFromNameLookup.set('InvalidStakeAta', () => new InvalidStakeAtaError());
+createErrorFromNameLookup.set(
+  "InvalidStakeAta",
+  () => new InvalidStakeAtaError()
+);
 
 /**
  * CannotTransferToSelf: ''
@@ -433,17 +495,20 @@ createErrorFromNameLookup.set('InvalidStakeAta', () => new InvalidStakeAtaError(
  */
 export class CannotTransferToSelfError extends Error {
   readonly code: number = 0x1784;
-  readonly name: string = 'CannotTransferToSelf';
+  readonly name: string = "CannotTransferToSelf";
   constructor() {
-    super('');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, CannotTransferToSelfError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1784, () => new CannotTransferToSelfError());
-createErrorFromNameLookup.set('CannotTransferToSelf', () => new CannotTransferToSelfError());
+createErrorFromNameLookup.set(
+  "CannotTransferToSelf",
+  () => new CannotTransferToSelfError()
+);
 
 /**
  * TransferNotSupported: 'Transfer is not supported on this membership model'
@@ -453,17 +518,20 @@ createErrorFromNameLookup.set('CannotTransferToSelf', () => new CannotTransferTo
  */
 export class TransferNotSupportedError extends Error {
   readonly code: number = 0x1785;
-  readonly name: string = 'TransferNotSupported';
+  readonly name: string = "TransferNotSupported";
   constructor() {
-    super('Transfer is not supported on this membership model');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Transfer is not supported on this membership model");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, TransferNotSupportedError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1785, () => new TransferNotSupportedError());
-createErrorFromNameLookup.set('TransferNotSupported', () => new TransferNotSupportedError());
+createErrorFromNameLookup.set(
+  "TransferNotSupported",
+  () => new TransferNotSupportedError()
+);
 
 /**
  * RemoveNotSupported: 'Remove is not supported on this membership model'
@@ -473,17 +541,20 @@ createErrorFromNameLookup.set('TransferNotSupported', () => new TransferNotSuppo
  */
 export class RemoveNotSupportedError extends Error {
   readonly code: number = 0x1786;
-  readonly name: string = 'RemoveNotSupported';
+  readonly name: string = "RemoveNotSupported";
   constructor() {
-    super('Remove is not supported on this membership model');
-    if (typeof Error.captureStackTrace === 'function') {
+    super("Remove is not supported on this membership model");
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, RemoveNotSupportedError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1786, () => new RemoveNotSupportedError());
-createErrorFromNameLookup.set('RemoveNotSupported', () => new RemoveNotSupportedError());
+createErrorFromNameLookup.set(
+  "RemoveNotSupported",
+  () => new RemoveNotSupportedError()
+);
 
 /**
  * RemoveSharesMustBeZero: 'Before you remove a wallet or NFT member please transfer the shares to another member'
@@ -493,17 +564,22 @@ createErrorFromNameLookup.set('RemoveNotSupported', () => new RemoveNotSupported
  */
 export class RemoveSharesMustBeZeroError extends Error {
   readonly code: number = 0x1787;
-  readonly name: string = 'RemoveSharesMustBeZero';
+  readonly name: string = "RemoveSharesMustBeZero";
   constructor() {
-    super('Before you remove a wallet or NFT member please transfer the shares to another member');
-    if (typeof Error.captureStackTrace === 'function') {
+    super(
+      "Before you remove a wallet or NFT member please transfer the shares to another member"
+    );
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, RemoveSharesMustBeZeroError);
     }
   }
 }
 
 createErrorFromCodeLookup.set(0x1787, () => new RemoveSharesMustBeZeroError());
-createErrorFromNameLookup.set('RemoveSharesMustBeZero', () => new RemoveSharesMustBeZeroError());
+createErrorFromNameLookup.set(
+  "RemoveSharesMustBeZero",
+  () => new RemoveSharesMustBeZeroError()
+);
 
 /**
  * InvalidCloseAccountDestination: 'Sending Sol to a SPL token destination will render the sol unusable'
@@ -513,19 +589,24 @@ createErrorFromNameLookup.set('RemoveSharesMustBeZero', () => new RemoveSharesMu
  */
 export class InvalidCloseAccountDestinationError extends Error {
   readonly code: number = 0x1788;
-  readonly name: string = 'InvalidCloseAccountDestination';
+  readonly name: string = "InvalidCloseAccountDestination";
   constructor() {
-    super('Sending Sol to a SPL token destination will render the sol unusable');
-    if (typeof Error.captureStackTrace === 'function') {
+    super(
+      "Sending Sol to a SPL token destination will render the sol unusable"
+    );
+    if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, InvalidCloseAccountDestinationError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x1788, () => new InvalidCloseAccountDestinationError());
+createErrorFromCodeLookup.set(
+  0x1788,
+  () => new InvalidCloseAccountDestinationError()
+);
 createErrorFromNameLookup.set(
-  'InvalidCloseAccountDestination',
-  () => new InvalidCloseAccountDestinationError(),
+  "InvalidCloseAccountDestination",
+  () => new InvalidCloseAccountDestinationError()
 );
 
 /**
